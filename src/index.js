@@ -36,9 +36,20 @@ const createButton = (entry) => {
     img.src = entry.sprite;
     const h2 = document.createElement("h2");
     h2.innerHTML = entry.id + ". " + entry.name;
-    button.appendChild(h2);
     button.appendChild(img);
+    button.appendChild(h2);
+    button.addEventListener("click", changePreview);
+    button.pokemonId = entry.id;
+    button.pokemonName = entry.name;
+    button.sprite = entry.sprite;
     return button;
+}
+
+const changePreview = (event) => {
+    const target = event.currentTarget;
+    console.log(target.pokemonName);
+    const preview = document.getElementById("preview-display"); 
+    preview.src = target.sprite;
 }
 
 const fetchPokemonData = async (id) => {
