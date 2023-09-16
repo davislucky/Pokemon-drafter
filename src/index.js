@@ -1,4 +1,4 @@
-const pokedex = document.getElementById("pokedex");
+const pokedex = document.getElementById("pokedex-list");
 const displayEntry = document.querySelector(".display");
 
 const fetchPokedex = async () => {

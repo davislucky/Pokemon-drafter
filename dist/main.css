@@ -56,4 +56,67 @@ table {
 /*!*************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/index.scss ***!
   \*************************************************************************************************************************************/
+.bordered {
+  border: solid;
+}
 
+.container,
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+.container {
+  width: 100%;
+  display: flex;
+}
+
+.quarter-width {
+  width: 25%;
+}
+
+.three-quarter-width {
+  width: 75%;
+}
+
+.full-height {
+  min-height: 100%;
+}
+
+.short {
+  min-height: 10%;
+}
+
+.medium {
+  min-height: 20%;
+}
+
+.tall {
+  height: 70%;
+  min-height: 70%;
+}
+
+.small {
+  height: 50px;
+  width: 50px;
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.list-item {
+  display: flex;
+  padding: 0.5em;
+  width: 15%;
+}
+
+.list-content {
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+  width: 100%;
+}

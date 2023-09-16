@@ -1,17 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="./dist/main.js" defer></script>
-    <link rel="stylesheet" href="./dist/main.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <script src="./dist/main.js" defer></script> -->
+    <link rel="stylesheet" href="./dist/main.css" />
     <title>Document</title>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Pokemon Drafter</h1>
-    <div >
-        <ol id="pokedex">
-        </ol>
+    <div id="app" class="bordered container full-height">
+      <div id="left-panel" class="bordered full-height quarter-width">
+        Left Panel
+      </div>
+      <div id="main-panel" class="bordered full-height three-quarter-width">
+        Main Panel
+        <div id="pokedex" class="bordered">
+          <div id="timer" class="bordered short">Timer</div>
+          <div id="pokemon-preview" class="bordered medium">
+            <img
+              src="https://img.pokemondb.net/artwork/avif/venusaur.avif"
+              alt=""
+            />
+          </div>
+          <div id="pokedex-list-container" class="bordered tall">
+            <ul id="pokedex-list" class="bordered list">
+              <li class="display list-item">
+                <div class="list-content">
+                  <button type="submit" class="display-button">
+                    <img
+                      src="https://img.pokemondb.net/artwork/avif/venusaur.avif"
+                      class="small"
+                    />
+                    <h2>0001 Bulbasaur</h2>
+                  </button>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- <div id="right-panel"></div> -->
     </div>
-</body>
+  </body>
 </html>
