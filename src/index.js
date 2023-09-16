@@ -1,20 +1,21 @@
 const pokedexList = document.getElementById("pokedex-list");
 const displayEntry = document.querySelector(".display");
+const preview = document.getElementById("preview-display");
 
 const fetchPokedex = async () => {
-    const url = `https://pokeapi.co/api/v2/pokemon?limit=10`; // want to eventually limit this query based on user's limits
-    const res = await fetch(url);
-    const data = await res.json();
-    const dexEntries = data.results.map((result, index) =>({
-        ...result,
-        id: index + 1,
-        sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png`
-    }));
-    displayDexEntries(dexEntries);
+  const url = `https://pokeapi.co/api/v2/pokemon?limit=10`; // want to eventually limit this query based on user's limits
+  const res = await fetch(url);
+  const data = await res.json();
+  const pokedex = data.results.map((result, index) => ({
+    ...result,
+    id: index + 1,
+    sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png`
+  }));
+  return pokedex;
 }
 
-const displayDexEntries = (dexEntries) => {
-   dexEntries.forEach((entry) =>{
+const displayPokedex = (pokedex) => {
+  pokedex.forEach((entry) => {
     const li = document.createElement("li");
     li.classList.add("list-item", "display");
     const div = document.createElement("div");
@@ -22,65 +23,59 @@ const displayDexEntries = (dexEntries) => {
     const button = createButton(entry);
     div.appendChild(button);
     li.appendChild(div);
-    
-    
-    pokedexList.append(li)
-   });
+    pokedexList.append(li);
+  });
 }
 
 const createButton = (entry) => {
-    const button = document.createElement("button");
-    button.classList.add("display-button");
-    const img = document.createElement("img");
-    img.classList.add("small")
-    img.src = entry.sprite;
-    const h2 = document.createElement("h2");
-    h2.innerHTML = entry.id + ". " + entry.name;
-    button.appendChild(img);
-    button.appendChild(h2);
-    button.addEventListener("click", changePreview);
-    button.pokemonId = entry.id;
-    button.pokemonName = entry.name;
-    button.sprite = entry.sprite;
-    return button;
+  const button = document.createElement("button");
+  button.classList.add("display-button");
+  const img = document.createElement("img");
+  img.classList.add("small")
+  img.src = entry.sprite;
+  const h2 = document.createElement("h2");
+  h2.innerHTML = entry.id + ". " + entry.name;
+  button.appendChild(img);
+  button.appendChild(h2);
+  button.addEventListener("click", handleClick);
+  button.dataset.id = entry.id;
+  button.dataset.name = entry.name;
+  button.dataset.sprite = entry.sprite;
+  return button;
 }
 
-const changePreview = (event) => {
-    const target = event.currentTarget;
-    console.log(target.pokemonName);
-    const preview = document.getElementById("preview-display"); 
-    preview.src = target.sprite;
+const handleClick = async (event) => {
+  const target = event.currentTarget;
+  changePreview(target.dataset.sprite);
+  const pokemon = await fetchPokemonData(target.dataset.id);
+  displayPokemon(pokemon);
+}
+
+const changePreview = (src) => {
+  preview.src = src;
 }
 
 const fetchPokemonData = async (id) => {
-    const url = `https://pokeapi.co/api/v2/pokemon/${id}/`
-    const res = await fetch(url);
-    const pokemon = await res.json();
-    const abilities = pokemon.abilities.map((ability) => ability.ability.name);
-    // pokemon.abilities = abilities;
-    const type = pokemon.types.map((type) => type.type.name);
-    // pokemon.types = type;
-    const moves = pokemon.moves.map((move) => move.move.name);
-    // pokemon.moves = moves
-    const baseStats = pokemon.stats.map((baseStat) => baseStat.base_stat);
-    // pokemon.base_stat = baseStats
-    const baseStatName = pokemon.stats.map((name) => name.stat.name);
-
-    const evs = pokemon.stats.map((ev) => ev.effort);
-    const height = pokemon.height // measured in meters so divide by 10
-    const weight = pokemon.weight //measured in kgs so divide by 10
-
-    displayPokemon(pokemon)
+  const url = `https://pokeapi.co/api/v2/pokemon/${id}/`
+  const res = await fetch(url);
+  const data = await res.json();
+  const pokemon = {};
+  pokemon.abilities = data.abilities.map((ability) => ability.ability.name);
+  pokemon.types = data.types.map((type) => type.type.name);
+  pokemon.moves = data.moves.map((move) => move.move.name);
+  pokemon.baseStat = data.stats.map((baseStat) => baseStat.base_stat);
+  pokemon.baseStatName = data.stats.map((name) => name.stat.name);
+  pokemon.evs = data.stats.map((ev) => ev.effort);
+  pokemon.height = data.height; // measured in meters so divide by 10
+  pokemon.weight = data.weight; //measured in kgs so divide by 10
+  return pokemon;
 }
 
 const displayPokemon = (pokemon) => {
-    console.log(pokemon.name)
+  console.log(pokemon);
 }
-
-// displayEntry.addEventListener("click", displayPokemon)
-
-
-
-fetchPokedex();
-
-
+const main  = async () => {
+    const pokedex = await fetchPokedex();
+    displayPokedex(pokedex);
+}
+main();

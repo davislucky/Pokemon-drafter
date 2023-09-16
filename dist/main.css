@@ -125,3 +125,7 @@ body {
   height: 96px;
   width: 96px;
 }
+
+#modal {
+  display: none;
+}
