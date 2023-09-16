@@ -1,4 +1,4 @@
-const pokedex = document.getElementById("pokedex-list");
+const pokedexList = document.getElementById("pokedex-list");
 const displayEntry = document.querySelector(".display");
 
 const fetchPokedex = async () => {
@@ -15,16 +15,30 @@ const fetchPokedex = async () => {
 
 const displayDexEntries = (dexEntries) => {
    dexEntries.forEach((entry) =>{
-    const li = document.createElement("li")
-    const img = document.createElement("img");
-    const h2 = document.createElement("h2");
-    img.src = entry.sprite;
-    h2.innerHTML = entry.id + ". " + entry.name;
-    li.appendChild(h2);
-    li.appendChild(img);
-    li.classList.add("display")
-    pokedex.append(li)
+    const li = document.createElement("li");
+    li.classList.add("list-item", "display");
+    const div = document.createElement("div");
+    div.classList.add("list-content");
+    const button = createButton(entry);
+    div.appendChild(button);
+    li.appendChild(div);
+    
+    
+    pokedexList.append(li)
    });
+}
+
+const createButton = (entry) => {
+    const button = document.createElement("button");
+    button.classList.add("display-button");
+    const img = document.createElement("img");
+    img.classList.add("small")
+    img.src = entry.sprite;
+    const h2 = document.createElement("h2");
+    h2.innerHTML = entry.id + ". " + entry.name;
+    button.appendChild(h2);
+    button.appendChild(img);
+    return button;
 }
 
 const fetchPokemonData = async (id) => {
@@ -32,14 +46,13 @@ const fetchPokemonData = async (id) => {
     const res = await fetch(url);
     const pokemon = await res.json();
     const abilities = pokemon.abilities.map((ability) => ability.ability.name);
-    pokemon.abilities = abilities;
+    // pokemon.abilities = abilities;
     const type = pokemon.types.map((type) => type.type.name);
-    pokemon.types = type;
+    // pokemon.types = type;
     const moves = pokemon.moves.map((move) => move.move.name);
-    pokemon.moves = moves
-    
+    // pokemon.moves = moves
     const baseStats = pokemon.stats.map((baseStat) => baseStat.base_stat);
-    pokemon.base_stat = baseStats
+    // pokemon.base_stat = baseStats
     const baseStatName = pokemon.stats.map((name) => name.stat.name);
 
     const evs = pokemon.stats.map((ev) => ev.effort);
