@@ -1,11 +1,13 @@
+// @ts-check
 const pokedexList = document.getElementById("pokedex-list");
 const displayEntry = document.querySelector(".display");
 const preview = document.getElementById("preview-display");
 
 const fetchPokedex = async () => {
-  const url = `https://pokeapi.co/api/v2/pokemon?limit=10`; // want to eventually limit this query based on user's limits
+  const url = `https://pokeapi.co/api/v2/pokemon?limit=100`; // want to eventually limit this query based on user's limits
   const res = await fetch(url);
   const data = await res.json();
+  const count = data.count;
   const pokedex = data.results.map((result, index) => ({
     ...result,
     id: index + 1,
