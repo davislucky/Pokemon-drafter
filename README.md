@@ -36,7 +36,7 @@ This project will be implemented with the following technologies:
 
 ## Wireframe
 
-<image src="./Wireframe.png"/>
+<image src="./update-wireframe.png"/>
 
 
 ## Implementation Timeline
