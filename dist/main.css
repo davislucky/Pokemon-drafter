@@ -6,15 +6,19 @@
     padding: 5px;
     background-color: greenyellow;
     flex-direction: column;
-    height: 50%;
+    flex-wrap: wrap;
+    align-items: stretch;
+    justify-content: space-between;
+    
 }
 .flex {
-    display: flex;
-    flex-direction: column;
+
 }
 
 .rows {
-    height: 120%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
 }
 
 .element {
@@ -26,11 +30,27 @@
 
 
 .upper-row {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
     background-color: red;
+    max-height: 50%;
+    min-height: 50%;
+    flex-grow: 1;
 }
 
 .lower-row {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
     background-color: lightblue;
+    max-height: 50%;
+    min-height: 50%;
+    flex-grow: 1
+}
+
+.item-selector {
+    flex: 1
 }
 
 
@@ -103,36 +123,17 @@ body {
 .container {
   width: 100%;
   display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: stretch;
 }
 
 .quarter-width {
   width: 15%;
 }
 
-.three-quarter-width {
-  width: 85%;
-}
-
 .full-height {
   min-height: 100%;
-}
-
-.short {
-  min-height: 10%;
-}
-
-.medium {
-  min-height: 20%;
-}
-
-.tall {
-  height: 70%;
-  min-height: 70%;
-}
-
-.small {
-  height: 50px;
-  width: 50px;
 }
 
 .list {
@@ -159,7 +160,7 @@ body {
   width: 120px;
 }
 
-#pokedex-list-container {
+.pokedex-list-container {
   position: absolute;
   bottom: 0;
   max-height: 40rem;
@@ -168,6 +169,7 @@ body {
   padding: 0.5em;
   resize: vertical;
   font-size: 0.8em;
+  flex-grow: 1;
 }
 
 button {

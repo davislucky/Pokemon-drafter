@@ -15,37 +15,40 @@ body {
 .container {
   width: 100%;
   display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: stretch;
 }
 
 .quarter-width {
   width: 15%;
 }
 
-.three-quarter-width {
-  width: 85%;
-}
+// .three-quarter-width {
+//   width: 85%;
+// }
 
 .full-height {
   min-height: 100%;
 }
 
-.short {
-  min-height: 10%;
-}
+// .short {
+//   min-height: 10%;
+// }
 
-.medium {
-  min-height: 20%;
-}
+// .medium {
+//   min-height: 20%;
+// }
 
-.tall {
-  height: 70%;
-  min-height: 70%;
-}
+// .tall {
+//   height: 70%;
+//   min-height: 70%;
+// }
 
-.small {
-  height: 50px;
-  width: 50px;
-}
+// .small {
+//   height: 50px;
+//   width: 50px;
+// }
 
 .list {
   display: flex;
@@ -69,7 +72,7 @@ body {
     width: 120px;
 }
 
-#pokedex-list-container {
+.pokedex-list-container {
     // background-color: #fbfbfb;
     position: absolute;
     bottom: 0;
@@ -80,6 +83,7 @@ body {
     resize: vertical;
     // font-family: Monaco, Menlo, Consolas, Courier New, monospace;
     font-size:.8em;
+    flex-grow: 1;
 }
 
 button {
@@ -91,5 +95,7 @@ button {
 h2 {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
+
 
 
