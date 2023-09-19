@@ -8,8 +8,6 @@
     flex-direction: column;
     flex-wrap: wrap;
     align-items: stretch;
-    justify-content: space-between;
-    
 }
 .flex {
 
@@ -52,6 +50,7 @@
 .item-selector {
     flex: 1
 }
+
 
 
 
@@ -161,7 +160,6 @@ body {
 }
 
 .pokedex-list-container {
-  position: absolute;
   bottom: 0;
   max-height: 40rem;
   height: 35%;
@@ -169,7 +167,6 @@ body {
   padding: 0.5em;
   resize: vertical;
   font-size: 0.8em;
-  flex-grow: 1;
 }
 
 button {
