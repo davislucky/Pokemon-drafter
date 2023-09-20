@@ -1,4 +1,3 @@
-
 const abilitiesDisplay = document.querySelector(".ability-selector-content");
 const typeDisplay = document.querySelector(".types-content");
 const baseStatsDisplay = document.querySelector(".base-stats-content");
@@ -9,6 +8,7 @@ const movesDisplay = document.querySelector(".moves-selector-content");
 const movesList = document.querySelector(".move-selector-list");
 const itemsDisplay = document.querySelector(".item-selector-content");
 
+let pokedex = [];
 
 const fetchPokedex = async () => {
   const url = `https://pokeapi.co/api/v2/pokemon?limit=1010`; // want to eventually limit this query based on user's limits
@@ -24,6 +24,8 @@ const fetchPokedex = async () => {
 }
 
 const displayPokedex = (pokedex) => {
+  console.log("displayPokedex", pokedex.length)
+  clearChildren(pokedexList);
   pokedex.forEach((entry) => {
     const li = document.createElement("li");
     li.classList.add("list-item", "display", `${entry.name}`);
@@ -36,28 +38,27 @@ const displayPokedex = (pokedex) => {
   });
 }
 
-document.getElementById('search-input').addEventListener('input', function (event) {
-  const searchTerm = event.target.value.toUpperCase();
-  const listItems = document.querySelectorAll('.list-item');
+const filterPokedex = (input, pokedex) => {
+  const searchTerm = input.toUpperCase();
+  let result = [];
+  let name = "";
 
-    listItems.forEach(function (item) {
-      // const text = item.querySelectorAll("button.display-button > a");
-      const children = item.childNodes;
-      // console.log(children)
-      const child = children[0];
-      // console.log(childtwo)
-      const gkids = child.childNodes[0];
-      // console.log("gkids:", gkids)
-      const ggkids = gkids.childNodes[1];
-      // console.log(ggkids);
-      const itemText = ggkids.innerText.toUpperCase();
-  
-      if (itemText.includes(searchTerm)) {
-          item.style.display = 'list-item';
-      } else {
-          item.style.display = 'none';
-      }
-    });
+  pokedex.forEach(entry => {
+    name = entry.name.toUpperCase();
+    if (name.includes(searchTerm)) {
+      result.push(entry);
+    }
+  });
+  return result;
+}
+
+function handleSearchInput (input) {
+  const filteredPokedex = filterPokedex(input, pokedex);
+  displayPokedex(filteredPokedex);
+}
+
+document.getElementById('search-input').addEventListener('input', function (event) {
+  handleSearchInput(event.target.value);
 });
 
 const createButton = (entry) => {
@@ -271,7 +272,7 @@ const displayIVs = (names, ivs) => {
 }
 
 const main  = async () => {
-    const pokedex = await fetchPokedex();
+    pokedex = await fetchPokedex();
     displayPokedex(pokedex);
 }
 main();
