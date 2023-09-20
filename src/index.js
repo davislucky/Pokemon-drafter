@@ -36,25 +36,6 @@ const displayPokedex = (pokedex) => {
   });
 }
 
-// function pokedexSearch() {
-//   let input = document.getElementById("search-input");
-//   let filter = input.value.toUpperCase();
-//   let ul = document.getElementById("pokedex-list");
-//   let li = ul.getElementsByTagName("li");
-//   let button = li.getElementsByTagName("dbutton")
-
-//   for (let i = 0; i < li.length; i++) {
-//     let h2 = li[i].getElementsByTagName("h2")[0];
-//     let textValue = h2.textContent || h2.innerText;
-
-//     if (textValue.toUpperCase().indexOf(filter) > -1) {
-//       li[i].display = "";
-//     } else {
-//       li[i].display = "none";
-//     }
-//   }
-// }
-
 document.getElementById('search-input').addEventListener('input', function (event) {
   const searchTerm = event.target.value.toUpperCase();
   const listItems = document.querySelectorAll('.list-item');
@@ -63,9 +44,9 @@ document.getElementById('search-input').addEventListener('input', function (even
       // const text = item.querySelectorAll("button.display-button > a");
       const children = item.childNodes;
       // console.log(children)
-      const childtwo = children[0];
+      const child = children[0];
       // console.log(childtwo)
-      const gkids = childtwo.childNodes[0];
+      const gkids = child.childNodes[0];
       // console.log("gkids:", gkids)
       const ggkids = gkids.childNodes[1];
       // console.log(ggkids);
