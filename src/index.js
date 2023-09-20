@@ -9,6 +9,8 @@ const movesList = document.querySelector(".move-selector-list");
 const itemsDisplay = document.querySelector(".item-selector-content");
 
 let pokedex = [];
+let items = [];
+let moves = [];
 
 const fetchPokedex = async () => {
   const url = `https://pokeapi.co/api/v2/pokemon?limit=1010`; // want to eventually limit this query based on user's limits
@@ -24,7 +26,7 @@ const fetchPokedex = async () => {
 }
 
 const displayPokedex = (pokedex) => {
-  console.log("displayPokedex", pokedex.length)
+  // console.log("displayPokedex", pokedex.length)
   clearChildren(pokedexList);
   pokedex.forEach((entry) => {
     const li = document.createElement("li");
@@ -79,7 +81,7 @@ const createButton = (entry) => {
   return button;
 }
 
-const clearFields = () => {
+const clearPokemonDisplay = () => {
   clearChildren(movesDisplay);
   clearChildren(baseStatsDisplay);
   clearChildren(abilitiesDisplay);
@@ -94,21 +96,21 @@ const clearChildren = (element) => {
 }
 
 const handleClickPokedex = async (event) => {
-  clearFields();
   const target = event.currentTarget;
   changePreview(target.dataset.sprite);
   const pokemon = await fetchPokemonData(target.dataset.id);
-  displayPokemon(pokemon);
+  const moves = await fetchMoves(pokemon.moves);
+  displayPokemon(pokemon, moves);
 }
-const displayPokemon = (pokemon) => {
-  // console.log(pokemon);
-  // displayMoves(pokemon.moves);
+
+const displayPokemon = (pokemon, moves) => {
+  clearPokemonDisplay();
+  displayMoves(moves);
   displayAbilities(pokemon.abilities);
   displayType(pokemon.types);
   displayEVs(pokemon.baseStatName, pokemon.evs);
   displayIVs(pokemon.baseStatName, pokemon.ivs);
   // displayBaseStats(pokemon.baseStatName, pokemon.baseStat);
-  // displayHeldItems();
 }
 
 const displayType = (types) => {
@@ -128,6 +130,7 @@ const fetchPokemonData = async (id) => {
   const url = `https://pokeapi.co/api/v2/pokemon/${id}/`
   const res = await fetch(url);
   const data = await res.json();
+  // console.log(data)
   const pokemon = {};
   pokemon.abilities = data.abilities.map((ability) => ability.ability.name);
   pokemon.types = data.types.map((type) => type.type.name);
@@ -138,25 +141,29 @@ const fetchPokemonData = async (id) => {
   pokemon.ivs = data.stats.map((ev) => ev.effort);
   pokemon.height = data.height; // measured in meters so divide by 10
   pokemon.weight = data.weight; //measured in kgs so divide by 10
+
   return pokemon;
 }
-
 
 
 const fetchMoveInfo = async (move) => {
   const url = `https://pokeapi.co/api/v2/move/${move}`
   const res = await fetch(url);
   const data = await res.json();
-  const moveInfo = {};
-  
-  moveInfo.name = data.name;
-  moveInfo.type = data.type.name;
-  moveInfo.power = data.power;
-  moveInfo.accuracy = data.accuracy;
-  moveInfo.class = data.damage_class.name;
-  moveInfo.url = `https://pokemondb.net/move/${move}`
-  return moveInfo;
+ 
+  return data;
 }
+
+const fetchMoves = async (moveNames) => {
+  let result = Promise.all(moveNames.map(async (name) => {
+    const data = await fetchMoveInfo(name);
+
+    return data;
+  }));
+  return result;
+}
+
+
 
 const displayMoves = (moves) => {
   moves.forEach(move => {
@@ -164,24 +171,32 @@ const displayMoves = (moves) => {
   });
 }
 
-const displayMove = async (move) => {
-  const moveInfo = await fetchMoveInfo(move);
+const displayMove = (move) => {
+  // console.log(move)
   const display = document.createElement("li");
   // display.setAttribute("value", `${move}`);
-  display.innerText = `${moveInfo.type}`.split("-").join(" ")
+  display.innerText = `${move.accuracy}, ${move.type.name}, ${move.power}, ${move.pp}` //.split("-").join(" ")
   movesList.appendChild(display);
   movesDisplay.appendChild(movesList);
 }
 
-
-
-const fetchHeldItems = async () => {
+const fetchHoldableItems = async () => {
   const url = `https://pokeapi.co/api/v2/item-attribute/holdable`;
   const res = await fetch(url);
   const data = await res.json();
 
   const items = data.items;
   return items;
+}
+
+const fetchHeldItems = async (holdableItems) => {
+  let result = Promise.all(holdableItems.map(async (item) => {
+    const res = await fetch(item.url);
+    const data = await res.json();
+
+    return data;
+  }));
+  return result;
 }
 
 const fetchHeldItemInfo = async (item) => {
@@ -195,19 +210,20 @@ const fetchHeldItemInfo = async (item) => {
   return itemInfo;
 }
 
-const displayHeldItems = async () => {
-  const items = await fetchHeldItems();
+const displayHeldItems = async (heldItems) => {
+  const items = await fetchHeldItems(heldItems);
   items.forEach(item => {
     const listEl = document.createElement("li")
     const a = document.createElement("a");
     const name = item.name;
-    console.log(name)
+    // console.log(item)
     a.setAttribute("href", `https://pokemondb.net/item/${name}`);
-    a.innerText = `${item.name} `;
+    a.innerText = `${item.effect_entries[0].effect} `;
     listEl.appendChild(a);
     itemsDisplay.appendChild(listEl);
-    console.log(fetchHeldItemInfo(item.name))
+    // console.log(fetchHeldItemInfo(item.name))
   })
+  // console.log(items)
 }
 
 
@@ -232,7 +248,7 @@ const displayBaseStats = (names, baseStats) => {
       stats[name] = number;
     }
   }
-  console.log(stats);
+  // console.log(stats);
   
 
   // Object.entries(stats).forEach(stat => {
@@ -253,7 +269,7 @@ const displayEVs = (names, evs) => {
       stats[name] = 0;
     }
   }
-  console.log(stats);
+  // console.log(stats);
   return stats;
 }
 
@@ -267,15 +283,17 @@ const displayIVs = (names, ivs) => {
       stats[name] = 0;
     }
   }
-  console.log(stats);
+  // console.log(stats);
   return stats;
 }
 
 const main  = async () => {
     pokedex = await fetchPokedex();
     displayPokedex(pokedex);
+    items = await fetchHoldableItems();
+    displayHeldItems(items); // put it in other place
 }
 main();
 
-const listItems = document.querySelectorAll('.display-button'); 
-console.log(listItems)
+// const listItems = document.querySelectorAll('.display-button'); 
+// console.log(listItems)
