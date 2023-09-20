@@ -16,6 +16,7 @@ const fetchPokedex = async () => {
   const data = await res.json();
   const pokedex = data.results.map((result, index) => ({
     ...result,
+    name: result.name,
     id: index + 1,
     sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png`
   }));
@@ -25,7 +26,7 @@ const fetchPokedex = async () => {
 const displayPokedex = (pokedex) => {
   pokedex.forEach((entry) => {
     const li = document.createElement("li");
-    li.classList.add("list-item", "display");
+    li.classList.add("list-item", "display", `${entry.name}`);
     const div = document.createElement("div");
     div.classList.add("list-content");
     const button = createButton(entry);
@@ -35,6 +36,49 @@ const displayPokedex = (pokedex) => {
   });
 }
 
+// function pokedexSearch() {
+//   let input = document.getElementById("search-input");
+//   let filter = input.value.toUpperCase();
+//   let ul = document.getElementById("pokedex-list");
+//   let li = ul.getElementsByTagName("li");
+//   let button = li.getElementsByTagName("dbutton")
+
+//   for (let i = 0; i < li.length; i++) {
+//     let h2 = li[i].getElementsByTagName("h2")[0];
+//     let textValue = h2.textContent || h2.innerText;
+
+//     if (textValue.toUpperCase().indexOf(filter) > -1) {
+//       li[i].display = "";
+//     } else {
+//       li[i].display = "none";
+//     }
+//   }
+// }
+
+document.getElementById('search-input').addEventListener('input', function (event) {
+  const searchTerm = event.target.value.toUpperCase();
+  const listItems = document.querySelectorAll('.list-item');
+
+    listItems.forEach(function (item) {
+      // const text = item.querySelectorAll("button.display-button > a");
+      const children = item.childNodes;
+      // console.log(children)
+      const childtwo = children[0];
+      // console.log(childtwo)
+      const gkids = childtwo.childNodes[0];
+      // console.log("gkids:", gkids)
+      const ggkids = gkids.childNodes[1];
+      // console.log(ggkids);
+      const itemText = ggkids.innerText.toUpperCase();
+  
+      if (itemText.includes(searchTerm)) {
+          item.style.display = 'list-item';
+      } else {
+          item.style.display = 'none';
+      }
+    });
+});
+
 const createButton = (entry) => {
   const button = document.createElement("button");
   button.classList.add("display-button");
@@ -42,7 +86,8 @@ const createButton = (entry) => {
   img.classList.add("small")
   img.src = entry.sprite;
   const h2 = document.createElement("h2");
-  h2.innerHTML = entry.id + ". " + entry.name;
+  h2.innerText = entry.id + ". " + entry.name;
+  h2.classList.add("title")
   button.appendChild(img);
   button.appendChild(h2);
   button.addEventListener("click", handleClickPokedex);
@@ -75,13 +120,13 @@ const handleClickPokedex = async (event) => {
 }
 const displayPokemon = (pokemon) => {
   // console.log(pokemon);
-  displayMoves(pokemon.moves);
+  // displayMoves(pokemon.moves);
   displayAbilities(pokemon.abilities);
   displayType(pokemon.types);
   displayEVs(pokemon.baseStatName, pokemon.evs);
   displayIVs(pokemon.baseStatName, pokemon.ivs);
-  displayBaseStats(pokemon.baseStatName, pokemon.baseStat);
-  displayHeldItems();
+  // displayBaseStats(pokemon.baseStatName, pokemon.baseStat);
+  // displayHeldItems();
 }
 
 const displayType = (types) => {
@@ -191,8 +236,6 @@ const displayAbilities = (abilities) => {
     a.innerText = `${ability} `;
     abilitiesDisplay.appendChild(a);
   });
-
-  console.log(abilities)
 }
 
 const displayBaseStats = (names, baseStats) => {
@@ -252,3 +295,5 @@ const main  = async () => {
 }
 main();
 
+const listItems = document.querySelectorAll('.display-button'); 
+console.log(listItems)
