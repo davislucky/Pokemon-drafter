@@ -34,21 +34,26 @@
     padding-bottom: 0;
     
 }
+.flex-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
 
 .lower-row {
-    border-top: solid black;
     padding-top: 0;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     background-color: #545863ff;
     width: auto;
-    max-height: 65%;
-    min-height: 65%;
+    max-height: 57%;
+    min-height: 57%;
     flex-grow: 1.5;
-    width: 100%;
+    width: 92%;
     bottom: 0;
     position: absolute;
+    align-content: center;
 }
 
 .item-selector {
@@ -75,6 +80,10 @@
     width: fit-content;
 }
 
+#base-stats {
+    display: table;
+    margin-bottom: 1rem;
+}
 /*!*****************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./reset.css ***!
   \*****************************************************************************************/
@@ -134,26 +143,17 @@ html,
 body {
   height: 100%;
   margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
 }
 
 body {
   background-color: #f8f4e3;
-}
-
-.container {
-  width: auto;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  align-items: stretch;
-}
-
-.quarter-width {
-  width: 15%;
-}
-
-.full-height {
-  min-height: 100%;
 }
 
 .list {
@@ -164,7 +164,7 @@ body {
 .list-item {
   display: flex;
   padding: 0.5em;
-  width: 13.4%;
+  width: 15.5%;
 }
 
 .list-content {
@@ -184,7 +184,12 @@ body {
   background-color: #f8f4e3;
 }
 
+#main-panel {
+  width: 75%;
+}
+
 .pokedex-list-container {
+  flex: 1;
   bottom: 0;
   max-height: 40rem;
   height: 100%;
@@ -195,21 +200,37 @@ body {
   min-width: 100%;
   width: 100%;
   height: 100%;
-  justify-content: space-evenly;
 }
 
 button {
   background-color: white;
   border: none;
   text-transform: uppercase;
+  cursor: pointer;
 }
 
 h2 {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
+h1 {
+  text-align: center;
+  font-size: 2rem;
+}
+
+.github {
+  height: 3em;
+  width: 3em;
+}
+
+.add {
+  display: flex;
+  align-self: center;
+}
+
 #search-input {
-  width: 12em;
+  width: 9em;
+  height: 0.1em;
 }
 
 .types {

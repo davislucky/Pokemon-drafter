@@ -24,7 +24,7 @@ const displayTeamList = (team) => {
     img.src = member.sprite;
     const li = document.createElement("li");
     const span = document.createElement("span");
-    span.innerText = member.name;
+    // span.innerText = member.name;
     img.display = "inline";
     li.appendChild(img);
     li.appendChild(span);
@@ -200,7 +200,10 @@ const displayMoves = (moves) => {
 
 const displayMove = (move) => {
   const display = document.createElement("li");
-  display.innerText = `${move.name.split("-").join(" ")}, ${move.damage_class.name}, ${move.accuracy}, ${move.type.name}, ${move.power}, ${move.pp}` //.split("-").join(" ")
+  display.innerText = `${move.name.split("-").join(" ").toUpperCase()}` //.split("-").join(" ")
+  const url = document.createElement("a");
+  display.setAttribute("href", `https://pokemondb.net/move/${move.name}`);
+  display.appendChild(url);
   movesList.appendChild(display);
   movesDisplay.appendChild(movesList);
 }
@@ -219,7 +222,7 @@ const displayAbilities = (abilities) => {
     const li = document.createElement("li");
     const a = document.createElement("a");
     a.setAttribute("href", `https://pokemondb.net/ability/${ability}`);
-    a.innerText = `${ability}`;
+    a.innerText = `${ability.toUpperCase()}`;
     li.appendChild(a);
     abilitiesDisplay.appendChild(li);
   });
