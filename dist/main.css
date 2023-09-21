@@ -350,7 +350,31 @@ button {
   border-radius: 4px;
 }
 
-.stats-bar {
+.stat-bar {
   height: 0.75rem;
+  border-radius: 4px;
+  background-color: #a3a3a3;
+  border: 1px solid #737373;
+  border-color: rgba(0, 0, 0, 0.15);
+}
+
+.cell-barchart {
+  width: 100%;
+  min-width: 150px;
+}
+
+.bad-stat {
   background-color: red;
+}
+
+.decent-stat {
+  background-color: rgb(224, 207, 19);
+}
+
+.good-stat {
+  background-color: rgb(33, 184, 33);
+}
+
+.great-stat {
+  background-color: #00c2b8;
 }

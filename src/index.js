@@ -8,17 +8,13 @@ const preview = document.getElementById("preview-display");
 const movesDisplay = document.querySelector(".moves-selector-content");
 const movesList = document.querySelector(".move-selector-list");
 // const itemsDisplay = document.querySelector(".item-selector-content");
-const hp = document.querySelector(".HP");
-const attack = document.querySelector(".Attack");
-const defense = document.querySelector(".Defense");
-const specialAttack = document.querySelector(".Special-Attack");
-const specialDefense = document.querySelector(".Special-Defense");
-const speed = document.querySelector(".Speed");
+// const hp = document.querySelector(".HP");
+
 const baseStatsContent = document.querySelector(".base-stats-content");
 const baseStatsTable = document.querySelector(".stats-table")
 
 let pokedex = [];
-// let items = [];
+let team = [];
 // let moves = [];
 
 const fetchPokedex = async () => {
@@ -223,43 +219,85 @@ const createStatsTableRow = (statName) => {
   return row;
 }
 
+const barChartColor = (stat) => {
+  const percent = stat / 230;
+  if (percent <= .25) {
+    return "bad-stat"
+  } 
+
+  if (percent <= .50) {
+    return "decent-stat"
+  }
+
+  if (percent <= .75) {
+    return "good-stat"
+  }
+  return "great-stat";
+}
+
+const makeBarChart = (stat) => {
+  const barchart = document.createElement("td");
+  barchart.classList.add("cell-barchart");
+  const width = stat * 100 / 230;
+  const statBar = document.createElement("div");
+  statBar.classList.add(barChartColor(stat));
+  statBar.setAttribute("style", `width:${width}%`);
+  statBar.classList.add("stat-bar");
+  barchart.appendChild(statBar);
+  return barchart
+}
+
 const displayBaseStats = (baseStats) => {
-  createStatsTable()
+  createStatsTable();
+  const attack = document.querySelector(".Attack");
+  const defense = document.querySelector(".Defense");
+  const specialAttack = document.querySelector(".Special-Attack");
+  const specialDefense = document.querySelector(".Special-Defense");
+  const speed = document.querySelector(".Speed");
+  const hp = document.querySelector(".HP");
+
   const tdhp = document.createElement("td");
   tdhp.classList.add("number");
   tdhp.innerText = baseStats[0];
-  const barchart = document.createElement("td");
-  const hpbar = document.createElement("div");
-  hpbar.setAttribute("style", `width:100%`);
-  hpbar.classList.add("stat-bar");
-  barchart.appendChild(hpbar);  
-  hp.appendChild(tdhp);
-  hp.appendChild(barchart)
+  hp.appendChild(tdhp);  
+  const hpbar = makeBarChart(baseStats[0]);
+  hp.appendChild(hpbar);
 
-  // const tdattack = document.createElement("td");
-  // tdattack.classList.add("number");
-  // tdattack.innerText = baseStats[1];
-  // attack.appendChild(tdattack);
+  const tdattack = document.createElement("td");
+  tdattack.classList.add("number");
+  tdattack.innerText = baseStats[1];
+  attack.appendChild(tdattack);
+  const attackBar = makeBarChart(baseStats[1]);
+  attack.appendChild(attackBar);
+  
 
-  // const tddefense = document.createElement("td");
-  // tddefense.classList.add("number");
-  // tddefense.innerText = baseStats[2];
-  // defense.appendChild(tddefense);
+  const tddefense = document.createElement("td");
+  tddefense.classList.add("number");
+  tddefense.innerText = baseStats[2];
+  defense.appendChild(tddefense);
+  const defenseBar = makeBarChart(baseStats[2]);
+  defense.appendChild(defenseBar);
 
-  // const tdsattack = document.createElement("td");
-  // tdsattack.classList.add("number");
-  // tdsattack.innerText = baseStats[3];
-  // specialAttack.appendChild(tdsattack);
+  const tdsattack = document.createElement("td");
+  tdsattack.classList.add("number");
+  tdsattack.innerText = baseStats[3];
+  specialAttack.appendChild(tdsattack);
+  const sABar = makeBarChart(baseStats[3]);
+  specialAttack.appendChild(sABar);
 
-  // const tdsdefense = document.createElement("td");
-  // tdsdefense.classList.add("number");
-  // tdsdefense.innerText = baseStats[4];
-  // specialDefense.appendChild(tdsdefense);
+  const tdsdefense = document.createElement("td");
+  tdsdefense.classList.add("number");
+  tdsdefense.innerText = baseStats[4];
+  specialDefense.appendChild(tdsdefense);
+  const sDBar = makeBarChart(baseStats[4]);
+  specialDefense.appendChild(sDBar);
 
-  // const tdspeed = document.createElement("td");
-  // tdspeed.classList.add("number");
-  // tdspeed.innerText = baseStats[5];
-  // speed.appendChild(tdspeed);
+  const tdspeed = document.createElement("td");
+  tdspeed.classList.add("number");
+  tdspeed.innerText = baseStats[5];
+  speed.appendChild(tdspeed);
+  const speedBar = makeBarChart(baseStats[5]);
+  speed.appendChild(speedBar);
   
 }
 
