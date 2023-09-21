@@ -10,11 +10,11 @@
   <body>
     <h1>Pokemon Drafter</h1>
     <div id="app" class="bordered container full-height">
-      <div id="left-panel" class="bordered full-height quarter-width">
+      <!-- <div id="left-panel" class="bordered full-height quarter-width">
         Team Panel
-      </div>
+      </div> -->
       <div id="main-panel" class="container bordered full-height three-quarter-width">
-        <div id="timer" class="bordered short">Timer</div>
+        <!-- <div id="timer" class="bordered short">Timer</div> -->
         <div id="pokemon-display-container" class="pokemon-display-container medium"> 
           <div class="flex rows">
             <div class="upper-row">
@@ -26,34 +26,37 @@
                   />
                 </div>
               </div>
-              <div id="types" class="flex element bordered types">
-                <div class="types-content"> Types
+              <div class="pokedex-search"> Name: 
+                <input type="text" id="search-input">
+              </div>
+              <div id="types" class="flex element bordered types">Types:
+                <div class="types-content">
                   
                 </div>
               </div>
-              <div id="item-selector" class="flex element item-selector bordered">
+              <!-- <div id="item-selector" class="item-selector">
                 <div class="item-selector-content">
                   Item Selector
                 </div>
-              </div>
-              <div id="ability-selector" class="flex element bordered ability-selector">
-                <div class="ability-selector-content">
-                  Ability Selector
+              </div> -->
+              <div id="ability-selector" class="flex element bordered ability-selector">Abilities:
+                <div class="ability-selector-content"> 
+                
                 </div>
               </div>
-              <div id="ev-selector" class="flex element bordered ev-selector">
+              <!-- <div id="ev-selector" class="flex element bordered ev-selector">
                 <div class="ev-content">
-                  evs
+              
                 </div>
               </div>
               <div id="iv-selector" class="flex element bordered iv-selector">
                 <div class="iv-content">
                   ivs
                 </div>
-              </div>
+              </div> -->
               <div id="base-stats" class="flex element bordered base-stats">
                 <div class="base-stats-content">
-                  base stats
+                
                 </div>
               </div>
               <div id="moves-selector" class="flex element bordered moves-selector">
@@ -65,7 +68,7 @@
               </div>
             </div>
             <div class="flex lower-row">
-              <input type="text" id="search-input">
+             
               <div id="pokedex-list-container" class="pokedex-list-container medium bordered">
                 <ul id="pokedex-list" class="list">
                 </ul>
