@@ -20,8 +20,14 @@ let team = [];
 const displayTeamList = (team) => {
   clearChildren(teamList);
   team.forEach(member => {
+    const img = document.createElement("img");
+    img.src = member.sprite;
     const li = document.createElement("li");
-    li.innerText = member.name;
+    const span = document.createElement("span");
+    span.innerText = member.name;
+    img.display = "inline";
+    li.appendChild(img);
+    li.appendChild(span);
     teamList.append(li);
   });
 }
@@ -41,7 +47,6 @@ const fetchPokedex = async () => {
 }
 
 const displayPokedex = (pokedex) => {
-  // console.log("displayPokedex", pokedex.length)
   clearChildren(pokedexList);
   pokedex.forEach((entry) => {
     const li = document.createElement("li");
@@ -126,16 +131,12 @@ const displayPokemon = (pokemon, moves) => {
 
   const addToTeamButton = document.querySelector("#add-to-team");
   addToTeamButton.dataset.pokemon = JSON.stringify(pokemon);
-  // console.log(`${JSON.stringify(pokemon)}`);
   addToTeamButton.addEventListener("click", handleAddToTeam);
 
 }
 
 const handleAddToTeam = (event) => {
-  // console.log(event.currentTarget)
-  // console.log(JSON.stringify(event.currentTarget.dataset.pokemon));
   const pokemon = JSON.parse(event.currentTarget.dataset.pokemon);
-  console.log(pokemon)
   team.push(pokemon);
   displayTeamList(team);
 }
@@ -158,9 +159,9 @@ const fetchPokemonData = async (id) => {
   const url = `https://pokeapi.co/api/v2/pokemon/${id}/`
   const res = await fetch(url);
   const data = await res.json();
-  // console.log(data)
   const pokemon = {};
   pokemon.name = data.name;
+  pokemon.sprite = data.sprites.front_default;
   pokemon.abilities = data.abilities.map((ability) => ability.ability.name);
   pokemon.types = data.types.map((type) => type.type.name);
   pokemon.moves = data.moves.map((move) => move.move.name);
