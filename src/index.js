@@ -200,7 +200,7 @@ const fetchMoves = async (moveNames) => {
 
 
 const displayMoves = (moves) => {
-  console.log(moves)
+  // console.log(moves)
   moves.forEach(move => {
     displayMove(move);
   });

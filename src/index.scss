@@ -72,7 +72,6 @@ body {
     min-width: 100%;
     width: 100%;
     height: 100%;
-
 }
 
 button {
@@ -107,6 +106,7 @@ h1 {
 #add-to-team {
   height: 3em;
   color: white;
+  border-radius: 10px;
 }
 
 .innate-info {
@@ -154,6 +154,8 @@ tr {
 .instructions {
   background-color:  #cc8b86ff;
   font-size: 1em;
+  border-radius: 10px;
+  cursor: pointer;
 }
 
 .types {
