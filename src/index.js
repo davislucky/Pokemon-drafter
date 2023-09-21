@@ -14,6 +14,7 @@ const baseStatsContent = document.querySelector(".base-stats-content");
 const baseStatsTable = document.querySelector(".stats-table")
 const teamList = document.querySelector(".team-list");
 const typesText = document.querySelector("#types");
+const abilityText = document.querySelector("#ability-selector");
 
 let pokedex = [];
 let team = [];
@@ -124,6 +125,9 @@ const handleClickPokedex = async (event) => {
 }
 
 const displayPokemon = (pokemon, moves) => {
+  movesDisplay.style.display = "block";
+  abilityText.style.display = "block";
+  typesText.style.display ="block";
   clearPokemonDisplay();
   displayMoves(moves);
   displayAbilities(pokemon.abilities);
@@ -196,6 +200,7 @@ const fetchMoves = async (moveNames) => {
 
 
 const displayMoves = (moves) => {
+  console.log(moves)
   moves.forEach(move => {
     displayMove(move);
   });
@@ -336,9 +341,11 @@ const displayBaseStats = (baseStats) => {
 
 
 const main  = async () => {
+  movesDisplay.style.display = "none";
+  typesText.style.display = "none";
+  abilityText.style.display = "none";
   pokedex = await fetchPokedex();
   displayPokedex(pokedex);
-  
 }
 main();
 
