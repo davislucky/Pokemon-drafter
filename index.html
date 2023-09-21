@@ -10,9 +10,11 @@
   <body>
     <h1>Pokemon Drafter</h1>
     <div id="app" class="bordered container full-height">
-      <!-- <div id="left-panel" class="bordered full-height quarter-width">
-        Team Panel
-      </div> -->
+      <div id="left-panel" class="bordered full-height quarter-width">
+        <ul class="team-list" id="team-list">
+
+        </ul>
+      </div>
       <div id="main-panel" class="container bordered full-height three-quarter-width">
         <!-- <div id="timer" class="bordered short">Timer</div> -->
         <div id="pokemon-display-container" class="pokemon-display-container medium"> 
@@ -26,6 +28,7 @@
                   />
                 </div>
               </div>
+              <button id="add-to-team">Add!</button>
               <div class="pokedex-search"> Name: 
                 <input type="text" id="search-input">
               </div>

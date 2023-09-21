@@ -12,10 +12,20 @@ const movesList = document.querySelector(".move-selector-list");
 
 const baseStatsContent = document.querySelector(".base-stats-content");
 const baseStatsTable = document.querySelector(".stats-table")
+const teamList = document.querySelector(".team-list")
 
 let pokedex = [];
 let team = [];
 // let moves = [];
+const displayTeamList = (team) => {
+  clearChildren(teamList);
+  team.forEach(member => {
+    const li = document.createElement("li");
+    li.innerText = member.name;
+    teamList.append(li);
+  });
+}
+
 
 const fetchPokedex = async () => {
   const url = `https://pokeapi.co/api/v2/pokemon?limit=1010`; // want to eventually limit this query based on user's limits
@@ -113,6 +123,21 @@ const displayPokemon = (pokemon, moves) => {
   displayAbilities(pokemon.abilities);
   displayType(pokemon.types);
   displayBaseStats(pokemon.baseStat);
+
+  const addToTeamButton = document.querySelector("#add-to-team");
+  addToTeamButton.dataset.pokemon = JSON.stringify(pokemon);
+  // console.log(`${JSON.stringify(pokemon)}`);
+  addToTeamButton.addEventListener("click", handleAddToTeam);
+
+}
+
+const handleAddToTeam = (event) => {
+  // console.log(event.currentTarget)
+  // console.log(JSON.stringify(event.currentTarget.dataset.pokemon));
+  const pokemon = JSON.parse(event.currentTarget.dataset.pokemon);
+  console.log(pokemon)
+  team.push(pokemon);
+  displayTeamList(team);
 }
 
 const displayType = (types) => {
@@ -135,6 +160,7 @@ const fetchPokemonData = async (id) => {
   const data = await res.json();
   // console.log(data)
   const pokemon = {};
+  pokemon.name = data.name;
   pokemon.abilities = data.abilities.map((ability) => ability.ability.name);
   pokemon.types = data.types.map((type) => type.type.name);
   pokemon.moves = data.moves.map((move) => move.move.name);
