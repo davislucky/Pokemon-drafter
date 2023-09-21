@@ -12,7 +12,8 @@ const movesList = document.querySelector(".move-selector-list");
 
 const baseStatsContent = document.querySelector(".base-stats-content");
 const baseStatsTable = document.querySelector(".stats-table")
-const teamList = document.querySelector(".team-list")
+const teamList = document.querySelector(".team-list");
+const typesText = document.querySelector("#types");
 
 let pokedex = [];
 let team = [];
@@ -137,7 +138,9 @@ const displayPokemon = (pokemon, moves) => {
 
 const handleAddToTeam = (event) => {
   const pokemon = JSON.parse(event.currentTarget.dataset.pokemon);
-  team.push(pokemon);
+  if (team.length <= 5) {
+    team.push(pokemon);
+  }
   displayTeamList(team);
 }
 
@@ -200,9 +203,9 @@ const displayMoves = (moves) => {
 
 const displayMove = (move) => {
   const display = document.createElement("li");
-  display.innerText = `${move.name.split("-").join(" ").toUpperCase()}` //.split("-").join(" ")
   const url = document.createElement("a");
-  display.setAttribute("href", `https://pokemondb.net/move/${move.name}`);
+  url.innerText = `${move.name.split("-").join(" ").toUpperCase()}` //.split("-").join(" ")
+  url.setAttribute("href", `https://pokemondb.net/move/${move.name}`);
   display.appendChild(url);
   movesList.appendChild(display);
   movesDisplay.appendChild(movesList);
@@ -222,7 +225,7 @@ const displayAbilities = (abilities) => {
     const li = document.createElement("li");
     const a = document.createElement("a");
     a.setAttribute("href", `https://pokemondb.net/ability/${ability}`);
-    a.innerText = `${ability.toUpperCase()}`;
+    a.innerText = `${ability.split("-").join(" ").toUpperCase()}`;
     li.appendChild(a);
     abilitiesDisplay.appendChild(li);
   });
@@ -333,9 +336,9 @@ const displayBaseStats = (baseStats) => {
 
 
 const main  = async () => {
-    pokedex = await fetchPokedex();
-    displayPokedex(pokedex);
-    items = await fetchHoldableItems();
+  pokedex = await fetchPokedex();
+  displayPokedex(pokedex);
+  
 }
 main();
 

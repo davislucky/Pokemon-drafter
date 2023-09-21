@@ -1,7 +1,7 @@
 @import url("./styles/customization-window.scss");
 @import url(../reset.css);
 
-
+// #f8f4e3ff
 
 .container,
 html,
@@ -84,14 +84,15 @@ button {
 
 h2 {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
 }
 
 h1 {
-  text-align: center;
   font-size: 2rem;
 }
 
 .github {
+  position: 0;
   height: 3em;
   width: 3em;
 
@@ -100,6 +101,43 @@ h1 {
 .add {
   display: flex;
   align-self: center;
+  width: 40px;
+}
+
+#add-to-team {
+  height: 3em;
+  color: white;
+}
+
+.innate-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding-left: 30px;
+  min-width: 200px;
+}
+
+th {
+  min-width: 65px;
+  padding: 4px 4px 4px
+}
+
+td,
+tr {
+  padding: 4px;
+  display: table-cell;
+}
+
+
+.base-stats-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.stats-table {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
 }
 
 #search-input {
@@ -107,8 +145,34 @@ h1 {
   height: .1em;
 }
 
+.header {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+}
+
+.instructions {
+  background-color:  #cc8b86ff;
+  font-size: 1em;
+}
+
 .types {
-  width: 12em;
+  display: flex;
+  flex-direction: column;
+  width: 6em;
+}
+
+.types-content {
+  padding-top: 1em;
+}
+
+.types-content p {
+  padding: .5em;
+}
+
+.preview-block {
+  display: flex;
+  flex-direction: column;
 }
 
 #pokedex-list {
@@ -121,6 +185,10 @@ h1 {
 
 button {
   background-color: #545863ff;
+}
+
+.number {
+  min-width: 35px;
 }
 
 #search-input {
@@ -138,10 +206,14 @@ button {
   margin-top: -1px;
   background-color: #f6f6f6;
   padding: 12px;
-  text-decoration: none;
   font-size: 18px;
   color: black;
-  display: block
+  display: block;
+  min-width: 35rem;
+}
+
+.move-selector-list li a {
+  text-decoration: none;
 }
 
 .types-content p {
